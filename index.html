@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>WKP5</title>
 	<style>
-
 		html {
 			font-family: Arial, Helvetica, sans-serif;
 		}
@@ -14,17 +13,24 @@
 		img {
 			max-width: 100%;
 		}
+
 		.container {
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
 		}
 
-		.newRecipe {
+		.generate {
+			margin-inline-start: 2rem;
+		}
+
+		.newRecipe,
+		form {
 			padding: 1rem;
 			margin: 2rem;
 			background-color: cadetblue;
 			border-radius: 5px;
 		}
+
 
 		.more-info {
 			text-align: center;
@@ -59,12 +65,29 @@
 		.outer-modal.open {
 			opacity: 1;
 			pointer-events: all;
+			overflow: scroll;
 		}
 
 		.tim-diff {
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
+		}
+
+		ul {
+			list-style: none;
+			padding-inline-start: 0;
+		}
+
+		.submit-button {
+			background-color: black;
+			color: white;
+			padding: 10px;
+			border-radius: 3px;
+			font-size: 18px;
+			padding-inline-start: 3rem;
+			padding-inline-end: 3rem;
+			margin-inline-start: 2rem;
 		}
 	</style>
 </head>
@@ -75,6 +98,8 @@
 		<div class="inner-modal"></div>
 	</div>
 	<button class="generate">GENERATE RECIPES</button>
+	<button class="add-button">ADD RECIPES</button>
+
 </body>
 <script src="script.js"></script>
 

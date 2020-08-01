@@ -56,7 +56,7 @@ const recipes = [
 
 const myCard = document.querySelector('.container');
 const generateButton = document.querySelector('button.generate');
-const moreInfo = document.querySelector('.more-info');
+const moreInfo = document.querySelectorAll('.more-info');
 const outerModal = document.querySelector('.outer-modal');
 const innerModal = document.querySelector('.inner-modal');
 
@@ -70,6 +70,7 @@ const renderCard = (e) => {
 		let author = recipes[i].author;
 		let difficulty = recipes[i].difficulty;
 		let timing = recipes[i].timing;
+		let id = recipes[i].id;
 
 		console.log(title);
 		console.log(picture);
@@ -78,11 +79,13 @@ const renderCard = (e) => {
 		console.log(timing);
 		// generate the HTML
 		const myHtml = `
-		<div class="newRecipe">
+		<div class="newRecipe" data-id="${id}">
 			<h2 class="recipe-name">${title}</h2>
-			<img src="${picture}" width="200" height="200" alt>
-			<p class="timing">${difficulty}</p>
-			<p class="difficulty">${timing}</p>
+			<img src="${picture}"alt>
+			<div class="tim-diff">
+				<p class="timing">${difficulty}</p>
+				<p class="difficulty">${timing}</p>
+			</div>
 			<button class="more-info">More info</button>
 		</div>
 	`;
@@ -92,33 +95,23 @@ const renderCard = (e) => {
 	};
 };
 
-const openModal = event => {
+const openModal = (event) => {
 	outerModal.classList.add('open');
-		for (let i = 0; i < recipes.length; i++) {
-			// check the recipes collection
-			let title = recipes[i].title;
-			let picture = recipes[i].picture;
-			let author = recipes[i].author;
-			let difficulty = recipes[i].difficulty;
-			let timing = recipes[i].timing;
-
-			console.log(title);
-			console.log(picture);
-			console.log(author);
-			console.log(difficulty);
-			console.log(timing);
-			// generate the HTML
-			const myNewHtml = `
+		// generate the HTML
+		const myNewHtml = `
 		<div class="newRecipe">
-			<h2 class="recipe-name">${title}</h2>
-			<img src="${picture}" width="200" height="200" alt>
-			<p class="timing">${difficulty}</p>
-			<p class="difficulty">${timing}</p>
-			<button class="more-info">More info</button>
-		</div>
+			<h2 class="recipe-name">${event.title} by ${event.author}</h2>
+			<img src="${event.picture}" alt>
+			<div class="tim-diff">
+				<p class="timing"><b>Timing:</b> ${event.difficulty}</p>
+				<p class="difficulty"><b>Difficulty:</b> ${event.timing}</p>
+			</div>
+			<div class="preparation">
+				<p class="ingredients"><b>Ingredients:</b> ${event.ingredients}</p>
+				<p class="steps"><b>Steps:</b> ${event.steps}</p>
+			</div>
 	`;
-			innerModal.innerHTML = myNewHtml;
-		};
+		innerModal.innerHTML = myNewHtml;
 };
 
 const closeModal = event => {
@@ -136,17 +129,16 @@ const escapeModal = event => {
 
 generateButton.addEventListener('click', renderCard);
 
-	const handleClick = e => {
-		if (e.target.matches('button.more-info')) {
-			const div = e.target.closest('.newRecipe');
-			const id = Number(div.dataset.id);
-			const recipe = recipes.find(recipe => recipe.id === id);
-			openModal();
-		}
-	};
-	//console.log(handleClick());	
-	window.addEventListener('click', handleClick);
-
+const handleClick = e => {
+	if (e.target.matches('button.more-info')) {
+		const div = e.target.closest('.newRecipe');
+		const id = Number(div.dataset.id);
+		const recipe = recipes.find(recipe => recipe.id === id);
+		openModal(recipe);
+	}
+};
+//console.log(handleClick());	
+window.addEventListener('click', handleClick);
 window.addEventListener('keydown', escapeModal);
 outerModal.addEventListener('click', closeModal);
 

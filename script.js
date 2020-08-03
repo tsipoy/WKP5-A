@@ -38,8 +38,8 @@ const recipes = [
 		id: 2,
 	},
 	{
-		title: 'My recipe',
-		picture: 'https://bit.ly/2ZXyiKI',
+		title: 'Fried potatoes',
+		picture: 'https://bit.ly/2Do256h',
 		author: 'Natacha',
 		difficulty: 'easy',
 		timing: '15',
